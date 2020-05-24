@@ -1,0 +1,458 @@
+<div nz-row>
+    <div class="container" nz-col [nzSpan]="18" [nzPush]="6">
+        <!-- Information Cards -->
+        <div nz-row [nzGutter]="16">
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+              <mat-card>
+                <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Requests'" ></nz-statistic>
+                    <ng-template #prefixTpl><i nz-icon nzType="like"></i></ng-template>
+                  </nz-col>
+              </mat-card>
+          </div></div>
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+              <mat-card>
+                <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Transit'" ></nz-statistic>
+                    <ng-template #prefixTpl><i nz-icon nzType="like"></i></ng-template>
+                  </nz-col>
+              </mat-card>
+          </div></div>
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+              <mat-card>
+                <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Delivered'" ></nz-statistic>
+                    <ng-template #prefixTpl><i nz-icon nzType="like"></i></ng-template>
+                  </nz-col>
+              </mat-card>
+          </div></div>
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+              <mat-card>
+                <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Deliveries'" ></nz-statistic>
+                    <ng-template #prefixTpl><i nz-icon nzType="like"></i></ng-template>
+                  </nz-col>
+              </mat-card>
+          </div></div>
+        </div>
+
+        <!-- buttons area -->
+        <div nz-row [nzGutter]="16" class="buttonContainer">
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box"></div></div>
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box"></div></div>
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box"></div></div>
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+                <button nz-button nzType="primary" nzShape="round" (click)="showAddParcelModal()"><i nz-icon nzType="plus" nzTheme="outline"></i>Add Parcel</button>
+            </div></div>
+          </div>
+
+        <!-- Table -->
+        <!-- All Parcels -->
+        <div>
+            <nz-divider nzText="All Parcels" nzOrientation="left"></nz-divider>
+            <nz-table #nzTable [nzData]="listOfAllParcels" nzTableLayout="fixed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Tracking #</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Category</th>
+                    <th>Amount Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let data of nzTable.data">
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.trackingNumber }}</td>
+                        <td>{{ data.source }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.amount }}</td>
+                        <td>
+                            <nz-badge nzStatus="success"></nz-badge>
+                            <span>{{ data.status }}</span>
+                        </td>
+                        <td>
+                            <a nz-button nzType="link" (click)="showEditParcelModal()">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </a>
+                            <a nz-button nzType="link" (click)="showViewParcelModal()">
+                                <i nz-icon nzType="snippets" nzTheme="outline"></i>
+                            </a>
+                        </td>
+                      </tr>
+                  </ng-container>
+                </tbody>
+              </nz-table>
+            
+
+        </div>
+
+        <!-- Requests table -->
+        <div>
+            <nz-divider nzText="Delivery Requests" nzOrientation="left"></nz-divider>
+            <nz-table #nzTable [nzData]="listOfDeliveryRequests" nzTableLayout="fixed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Tracking #</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Category</th>
+                    <th>Amount Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let data of nzTable.data">
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.trackingNumber }}</td>
+                        <td>{{ data.source }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.amount }}</td>
+                        <td>
+                            <nz-badge nzStatus="default"></nz-badge>
+                            <span>{{ data.status }}</span>
+                        </td>
+                        <td>
+                            <a nz-button nzType="link" (click)="showEditParcelModal()">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </a>
+                            <a nz-button nzType="link" (click)="showViewParcelModal()">
+                                <i nz-icon nzType="snippets" nzTheme="outline"></i>
+                            </a>
+                        </td>
+                      </tr>
+                  </ng-container>
+                </tbody>
+              </nz-table>
+            
+
+        </div>
+
+        <!-- In Transit -->
+        <div>
+            <nz-divider nzText="Parcels In Transit" nzOrientation="left"></nz-divider>
+            <nz-table #nzTable [nzData]="listOfParcelsInTransit" nzTableLayout="fixed">
+                <thead>
+                  <tr>
+                    
+                    <th>Name</th>
+                    <th>Tracking #</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Category</th>
+                    <th>Amount Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let data of nzTable.data">
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.trackingNumber }}</td>
+                        <td>{{ data.source }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.amount }}</td>
+                        <td>
+                            <nz-badge nzStatus="processing"></nz-badge>
+                            <span>{{ data.status }}</span>
+                        </td>
+                        <td>
+                            <a nz-button nzType="link" (click)="showEditParcelModal()">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </a>
+                            <a nz-button nzType="link" (click)="showViewParcelModal()">
+                                <i nz-icon nzType="snippets" nzTheme="outline"></i>
+                            </a>
+                        </td>
+                      </tr>
+                  </ng-container>
+                </tbody>
+              </nz-table>
+            
+        </div>
+
+        <!-- Deliverd -->
+        <div>
+            <nz-divider nzText="Delivered Parcels" nzOrientation="left"></nz-divider>
+            <nz-table #nzTable [nzData]="listOfDeliveredParcels" nzTableLayout="fixed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Tracking #</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Category</th>
+                    <th>Amount Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let data of nzTable.data">
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.trackingNumber }}</td>
+                        <td>{{ data.source }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.amount }}</td>
+                        <td>
+                            <nz-badge nzStatus="success"></nz-badge>
+                            <span>{{ data.status }}</span>
+                        </td>
+                        <td>
+                            <a nz-button nzType="link" (click)="showEditParcelModal()">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </a>
+                            <a nz-button nzType="link" (click)="showViewParcelModal()">
+                                <i nz-icon nzType="snippets" nzTheme="outline"></i>
+                            </a>
+                        </td>
+                      </tr>
+                  </ng-container>
+                </tbody>
+              </nz-table>
+            
+        </div>
+
+        <!-- Defaulted Parcels -->
+        <div>
+            <nz-divider nzText="Defaulted Parcels" nzOrientation="left"></nz-divider>
+            <nz-table #nzTable [nzData]="listOfDefaultedParcels" nzTableLayout="fixed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Tracking #</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Category</th>
+                    <th>Amount Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let data of nzTable.data">
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.trackingNumber }}</td>
+                        <td>{{ data.source }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.amount }}</td>
+                        <td>
+                            <span><nz-badge nzStatus="success"></nz-badge></span>
+                            {{ data.status }}
+                        </td>
+                        <td>
+                            <a nz-button nzType="link" (click)="showEditParcelModal()">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </a>
+                            <a nz-button nzType="link" (click)="showViewParcelModal()">
+                                <i nz-icon nzType="snippets" nzTheme="outline"></i>
+                            </a>
+                        </td>
+                      </tr>
+                  </ng-container>
+                </tbody>
+              </nz-table>
+            
+        </div>
+
+    </div>
+    <div nz-col [nzSpan]="6" [nzPull]="18">
+        <app-navigation></app-navigation>
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- Edit Parcel Modal -->
+<nz-modal [(nzVisible)]="isEditParcelModalVisable" nzTitle="Edit Parcels" (nzOnCancel)="editParcelModalCancel()" (nzOnOk)="editParcelModalOk()">
+    <p>Content one</p>
+    <p>Content two</p>
+    <p>Content three</p>
+    <p>Content three</p>
+  </nz-modal>
+
+<!-- Parcel Details modal -->
+<nz-modal [(nzVisible)]="isViewParcelsModalVisable" nzTitle="View Parcels" (nzOnCancel)="viewParcelModalCancel()" (nzOnOk)="viewParcelModalOk()">
+    <p>Content one</p>
+    <p>Content two</p>
+    <p>Content three</p>
+    <p>Content three</p>
+  </nz-modal>
+
+<!-- Add Parcel Modal -->
+
+  <nz-modal [(nzVisible)]="isAddParcelsVisiable" nzTitle="Add Parcel" (nzOnCancel)="addParcelCancel()">
+    <div>
+      <!-- Add Parcel Form -->
+      <!-- Change this to material forms -->
+
+      <form nz-form (ngSubmit)="submitAddParcelForm()">
+        <!-- Customer names -->
+        <nz-form-item>
+          <nz-input-group [nzPrefix]="prefixTemplateUser">
+            <input type="text" nz-input placeholder="Enter Customer names" />
+          </nz-input-group>
+          <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+        </nz-form-item>
+
+        <!-- Contact Details -->
+        
+        <div nz-row class="multilItemContainer">
+          <!-- Primary Contact -->
+          <nz-form-item>
+          <div nz-col class="contactContainer">
+            <nz-input-group [nzPrefix]="primaryContactPrefix">
+              <input type="text" nz-input placeholder="Enter Customer names" />
+            </nz-input-group>
+            <ng-template #primaryContactPrefix><i nz-icon nzType="phone" nzTheme="fill"></i></ng-template>
+          </div>
+        </nz-form-item>
+        <!-- Secondary Contact -->
+        <nz-form-item>
+          <div nz-col  class="contactContainer">
+            <nz-input-group [nzPrefix]="secondaryContactPrefix">
+              <input type="text" nz-input placeholder="Enter Customer names" />
+            </nz-input-group>
+            <ng-template #secondaryContactPrefix><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+          </div>
+        </nz-form-item>
+        </div>
+
+      <!-- Email Address -->
+      <nz-form-item>
+        <nz-input-group [nzPrefix]="prefixTemplateUser">
+          <input type="text" nz-input placeholder="Enter Customer names" />
+        </nz-input-group>
+        <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+      </nz-form-item>
+
+      <!-- Parcel -->
+      <nz-form-item>
+        <nz-input-group [nzPrefix]="prefixTemplateUser">
+          <input type="text" nz-input placeholder="Enter Customer names" />
+        </nz-input-group>
+        <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+      </nz-form-item>
+
+      <!-- Parcel Description -->
+      <nz-form-item>
+        <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+      </nz-form-item>
+
+      <!-- Additional Parcel Information -->
+      <div nz-row>
+        <!-- Parcel Weight -->
+        <div nz-col [nzXs]="{ span: 5, offset: 1 }" [nzLg]="{ span: 6, offset: 2 }">
+          <nz-form-item>
+            <nz-input-group [nzPrefix]="prefixTemplateUser">
+              <input type="text" nz-input placeholder="Enter Customer names" />
+            </nz-input-group>
+            <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+          </nz-form-item>
+        </div>
+
+        <!-- Parcel Type -->
+        <div nz-col [nzXs]="{ span: 11, offset: 1 }" [nzLg]="{ span: 6, offset: 2 }">
+          <nz-form-item>
+            <nz-input-group [nzPrefix]="prefixTemplateUser">
+              <input type="text" nz-input placeholder="Enter Customer names" />
+            </nz-input-group>
+            <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+          </nz-form-item>
+        </div>
+
+        <!-- Shippment type -->
+        <div nz-col [nzXs]="{ span: 5, offset: 1 }" [nzLg]="{ span: 6, offset: 2 }">
+          <nz-form-item>
+            <nz-input-group [nzPrefix]="prefixTemplateUser">
+              <input type="text" nz-input placeholder="Enter Customer names" />
+            </nz-input-group>
+            <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!-- Source/Destination -->
+      <div nz-row>
+        <!-- Source -->
+        <nz-form-item>
+        <div nz-col class="contactContainer">
+          <nz-input-group [nzPrefix]="prefixTemplateUser">
+            <input type="text" nz-input placeholder="Enter Customer names" />
+          </nz-input-group>
+          <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="fill"></i></ng-template>
+        </div>
+      </nz-form-item>
+      <!-- Destination -->
+      <nz-form-item>
+        <div nz-col class="contactContainer">
+          <nz-input-group [nzPrefix]="prefixTemplateUser">
+            <input type="text" nz-input placeholder="Enter Customer names" />
+          </nz-input-group>
+          <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+        </div>
+      </nz-form-item>
+      </div>
+
+      <!-- Collection/Estimated Delivery Date -->
+      <div nz-row>
+        <!-- Collection Date -->
+        <nz-form-item>
+        <div nz-col class="contactContainer">
+          <nz-input-group [nzPrefix]="prefixTemplateUser">
+            <input type="text" nz-input placeholder="Enter Customer names" />
+          </nz-input-group>
+          <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="fill"></i></ng-template>
+        </div>
+      </nz-form-item>
+      <!-- Estimated Dropo off date -->
+      <nz-form-item>
+        <div nz-col class="contactContainer">
+          <nz-input-group [nzPrefix]="prefixTemplateUser">
+            <input type="text" nz-input placeholder="Enter Customer names" />
+          </nz-input-group>
+          <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+        </div>
+      </nz-form-item>
+      </div>
+
+      <!-- Recipient Contact -->
+      <nz-form-item>
+        <nz-input-group [nzPrefix]="prefixTemplateUser">
+          <input type="text" nz-input placeholder="Enter Customer names" />
+        </nz-input-group>
+        <ng-template #prefixTemplateUser><i nz-icon nzType="phone" nzTheme="outline"></i></ng-template>
+      </nz-form-item>
+
+      <!-- Estimated Amount Due -->
+
+      </form>
+      
+      <!-- <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Extra information" nzType="info-circle"></i></ng-template> -->
+
+  
+
+      
+    </div>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="addParcelCancel()" nzShape="round">Discard</button>
+      <button nz-button nzType="primary" (click)="addParcelOk()" [nzLoading]="isAddParcelLoading" nzShape="round">
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+        Add
+      </button>
+    </div>
+  </nz-modal>

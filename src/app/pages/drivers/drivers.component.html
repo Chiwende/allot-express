@@ -1,0 +1,79 @@
+<div nz-row>
+  <div class="container" nz-col [nzSpan]="18" [nzPush]="6">
+
+    <!-- Cards -->
+      <div nz-row [nzGutter]="16">
+        <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+            <mat-card></mat-card>
+        </div></div>
+        <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+            <mat-card></mat-card>
+        </div></div>
+        <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+            <mat-card></mat-card>
+        </div></div>
+        <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+            <mat-card></mat-card>
+        </div></div>
+      </div>
+
+      <!-- Control Area -->
+      <div class="container" nz-col [nzSpan]="18" [nzPush]="6">
+        <div nz-row [nzGutter]="16">
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+               
+          </div></div>
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+              
+          </div></div>
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+              
+           </div></div>
+          <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+            <button nz-button nzType="primary" nzShape="round" (click)="showAddDriveModal()"><i nz-icon nzType="plus" nzTheme="outline"></i>Add Driver</button>
+          </div></div>
+        </div>
+    </div>
+
+
+    <!-- Modals -->
+    <!-- Add Driver Modal -->
+    <nz-modal [(nzVisible)]="isAddDriverModalVisiable" nzTitle="Add Driver" (nzOnCancel)="addDriverModalCancel()">
+      <div>
+        <app-add-driver-form></app-add-driver-form>
+      </div>
+      <div *nzModalFooter>
+        <!-- <span>Modal Footer: </span> -->
+        <button nz-button nzType="default" (click)="addDriverModalCancel()" nzShape="round">
+          <i nz-icon nzType="close" nzTheme="outline"></i>
+          Discard
+        </button>
+        <button nz-button nzType="primary" (click)="addDriverModalOk()" [nzLoading]="isConfirmLoading" nzShape="round">
+          <i nz-icon nzType="check" nzTheme="outline"></i>
+          Add Driver
+        </button>
+      </div>
+    </nz-modal>
+
+    <!-- View Driver Details Modal -->
+     <nz-modal [(nzVisible)]="isViewDriverModalVisiable" nzTitle="Add Driver" (nzOnCancel)="viewDriverModalCancel()">
+      <div>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+      </div>
+      <div *nzModalFooter>
+        <span>Modal Footer: </span>
+        <button nz-button nzType="default" (click)="viewDriverModalCancel()">Custom Callback</button>
+        <button nz-button nzType="primary" (click)="viewDriverModalOk()" [nzLoading]="isConfirmLoading">Custom Submit</button>
+      </div>
+    </nz-modal>
+  </div>
+  <div nz-col [nzSpan]="6" [nzPull]="18">
+    <app-navigation></app-navigation>
+  </div>
+</div>
+
+  

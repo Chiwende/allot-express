@@ -1,0 +1,178 @@
+<div nz-row>
+    <div class="container" nz-col [nzSpan]="18" [nzPush]="6">
+        
+          <!-- Table divider -->
+          
+      
+          <div nz-row [nzGutter]="16" style="padding:10px;">
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box"></div></div>
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box"></div></div>
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box"></div></div>
+            <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+                <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                    <input type="text" nz-input placeholder="Enter your username" />
+                  </nz-input-group>
+                  <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Extra information" nzType="search"></i></ng-template>
+            </div></div>
+          </div>
+        
+
+        <!-- Individual Clients -->
+        <nz-divider nzText="Individuals" nzOrientation="left"></nz-divider>
+        <nz-table #nestedTable [nzData]="listOfParentIndividualData" [nzPageSize]="10">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Primary Address</th>
+                <th>Email</th>
+                <th>NRC</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+                <tr>
+                  <td [(nzExpand)]="data.expand"></td>
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.platform }}</td>
+                  <td>{{ data.version }}</td>
+                  <td>{{ data.upgradeNum }}</td>
+                  <td>{{ data.creator }}</td>
+                  <td>{{ data.createdAt }}</td>
+                  <td>
+                    <a>Publish</a>
+                  </td>
+                </tr>
+                <tr [nzExpand]="data.expand">
+                  <nz-table #innerTable [nzData]="listOfChildrenIndividualData" nzSize="middle" [nzShowPagination]="false">
+                    <thead>
+                      <tr>
+                        <th>Address</th>
+                        <th>Street</th>
+                        <th>Town</th>
+                        <th>Province</th>
+                        <th>Postal Code</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of innerTable.data">
+                        <td>{{ data.date }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>
+                          <nz-badge [nzStatus]="'success'" [nzText]="'Finished'"></nz-badge>
+                        </td>
+                        <td>{{ data.upgradeNum }}</td>
+                        <td>
+                          <span class="table-operation">
+                            <a nz-dropdown class="operation" [nzDropdownMenu]="menu"> Pause <i nz-icon nzType="down"></i> </a>
+                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                              <ul nz-menu>
+                                <li nz-menu-item>
+                                  <a>Action 1</a>
+                                </li>
+                                <li nz-menu-item>
+                                  <a>Action 2</a>
+                                </li>
+                              </ul>
+                            </nz-dropdown-menu>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a class="operation">Stop</a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a>More</a>
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </nz-table>
+                </tr>
+              </ng-template>
+            </tbody>
+          </nz-table>
+
+          <!-- Business Customers table -->
+          <nz-divider nzText="Businesses" nzOrientation="left"></nz-divider>
+
+          <!-- Business Table -->
+          <nz-table #nestedTable [nzData]="listOfParentBusinessData" [nzPageSize]="10">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Username</th>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>Address</th>
+                  <th>Email</th>
+                  <th>NRC</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+                  <tr>
+                    <td [(nzExpand)]="data.expand"></td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.platform }}</td>
+                    <td>{{ data.version }}</td>
+                    <td>{{ data.upgradeNum }}</td>
+                    <td>{{ data.creator }}</td>
+                    <td>{{ data.createdAt }}</td>
+                    <td>
+                      <a>Publish</a>
+                    </td>
+                  </tr>
+                  <tr [nzExpand]="data.expand">
+                    <nz-table #innerTable [nzData]="listOfChildrenBusinessData" nzSize="middle" [nzShowPagination]="false">
+                      <thead>
+                        <tr>
+                          <th>Address</th>
+                          <th>Street</th>
+                          <th>Town</th>
+                          <th>Province</th>
+                          <th>Postal Code</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of innerTable.data">
+                          <td>{{ data.date }}</td>
+                          <td>{{ data.name }}</td>
+                          <td>
+                            <nz-badge [nzStatus]="'success'" [nzText]="'Finished'"></nz-badge>
+                          </td>
+                          <td>{{ data.upgradeNum }}</td>
+                          <td>
+                            <span class="table-operation">
+                              <a nz-dropdown class="operation" [nzDropdownMenu]="menu"> Pause <i nz-icon nzType="down"></i> </a>
+                              <nz-dropdown-menu #menu="nzDropdownMenu">
+                                <ul nz-menu>
+                                  <li nz-menu-item>
+                                    <a>Action 1</a>
+                                  </li>
+                                  <li nz-menu-item>
+                                    <a>Action 2</a>
+                                  </li>
+                                </ul>
+                              </nz-dropdown-menu>
+                              <nz-divider nzType="vertical"></nz-divider>
+                              <a class="operation">Stop</a>
+                              <nz-divider nzType="vertical"></nz-divider>
+                              <a>More</a>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </nz-table>
+                  </tr>
+                </ng-template>
+              </tbody>
+            </nz-table>
+    </div>
+    <div nz-col [nzSpan]="6" [nzPull]="18">
+        <app-navigation></app-navigation>
+    </div>
+</div>
+

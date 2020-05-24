@@ -1,0 +1,62 @@
+<!-- <nz-divider></nz-divider> -->
+<div class="container">
+  <div class="navigation">
+    <ul nz-menu nzMode="inline" style="width: 240px;">
+      <!-- Avatar  -->
+      <div nz-row>
+        <nz-comment nzAuthor="Username">
+          <nz-avatar nz-comment-avatar nzIcon="user" [nzSize]="64"></nz-avatar>
+          <nz-comment-content>
+            <p>
+              username@mail.com
+            </p>
+          </nz-comment-content>
+        </nz-comment>
+      </div>
+
+      <nz-divider></nz-divider>
+
+      <!-- Navigation Menu -->
+      <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"></ng-container>
+      <ng-template #menuTpl let-menus>
+        <ng-container *ngFor="let menu of menus">
+          <li
+            *ngIf="!menu.children"
+            nz-menu-item
+            [nzPaddingLeft]="menu.level * 24"
+            [nzDisabled]="menu.disabled"
+            [nzSelected]="menu.selected"
+          >
+            <a routerLink="menu.route" ></a>
+            <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+            <span>{{ menu.title }}</span>
+          </li>
+          <li
+            *ngIf="menu.children"
+            nz-submenu
+            [nzPaddingLeft]="menu.level * 24"
+            [nzOpen]="menu.open"
+            [nzTitle]="menu.title"
+            [nzIcon]="menu.icon"
+            [nzDisabled]="menu.disabled"
+            
+          >
+          
+            <ul>
+              <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
+            </ul>
+            <a routeLink="menu.route"></a>
+          </li>
+        </ng-container>
+        <router-outlet></router-outlet>
+      </ng-template>
+    </ul>
+  </div>
+  <div class="content">
+    <router-outlet> </router-outlet>
+  </div>
+  </div>
+
+
+    
+  
